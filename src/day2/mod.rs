@@ -2,16 +2,15 @@ use std::fs;
 
 pub fn part1() {
     let entries = load_input("inputs/day2.txt");
-    let num_valid = entries.iter().filter(|e| { e.valid_part1() }).count();
+    let num_valid = entries.iter().filter(|e| e.valid_part1()).count();
     println!("day2.part1.solution = {}", num_valid);
 }
 
 pub fn part2() {
     let entries = load_input("inputs/day2.txt");
-    let num_valid = entries.iter().filter(|e| { e.valid_part2() }).count();
+    let num_valid = entries.iter().filter(|e| e.valid_part2()).count();
     println!("day2.part2.solution = {}", num_valid);
 }
-
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct Policy {
@@ -28,7 +27,7 @@ pub struct PasswordEntry {
 
 impl PasswordEntry {
     pub fn parse(line: &str) -> PasswordEntry {
-        let parts: Vec<_> = line.split(|c| { "- :".contains(c) }).collect();
+        let parts: Vec<_> = line.split(|c| "- :".contains(c)).collect();
 
         PasswordEntry {
             policy: Policy {
@@ -41,7 +40,11 @@ impl PasswordEntry {
     }
 
     pub fn valid_part1(&self) -> bool {
-        let count = self.password.chars().filter(|c| { c == &self.policy.letter }).count();
+        let count = self
+            .password
+            .chars()
+            .filter(|c| c == &self.policy.letter)
+            .count();
         self.policy.min <= count && count <= self.policy.max
     }
 
@@ -57,7 +60,6 @@ pub fn load_input(filename: &str) -> Vec<PasswordEntry> {
     content.lines().map(PasswordEntry::parse).collect()
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -65,11 +67,32 @@ mod tests {
     #[test]
     fn loads_example_input() {
         let result = load_input("inputs/day2.example.txt");
-        let expected = vec!{
-            PasswordEntry{ policy: Policy { letter: 'a', min: 1, max: 3 }, password: "abcde".to_string() },
-            PasswordEntry{ policy: Policy { letter: 'b', min: 1, max: 3 }, password: "cdefg".to_string() },
-            PasswordEntry{ policy: Policy { letter: 'c', min: 2, max: 9 }, password: "ccccccccc".to_string() },
-        };
+        let expected = vec![
+            PasswordEntry {
+                policy: Policy {
+                    letter: 'a',
+                    min: 1,
+                    max: 3,
+                },
+                password: "abcde".to_string(),
+            },
+            PasswordEntry {
+                policy: Policy {
+                    letter: 'b',
+                    min: 1,
+                    max: 3,
+                },
+                password: "cdefg".to_string(),
+            },
+            PasswordEntry {
+                policy: Policy {
+                    letter: 'c',
+                    min: 2,
+                    max: 9,
+                },
+                password: "ccccccccc".to_string(),
+            },
+        ];
 
         assert_eq!(result, expected);
     }
