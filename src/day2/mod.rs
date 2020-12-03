@@ -51,7 +51,7 @@ impl PasswordEntry {
     pub fn valid_part2(&self) -> bool {
         let first = self.password.chars().nth(self.policy.min - 1).unwrap() == self.policy.letter;
         let second = self.password.chars().nth(self.policy.max - 1).unwrap() == self.policy.letter;
-        (first || second) && !(first && second)
+        first != second
     }
 }
 
