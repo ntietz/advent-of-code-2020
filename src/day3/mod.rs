@@ -25,6 +25,20 @@ impl Terrain {
     }
 }
 
+fn how_many_trees_to_hug(terrain: &Terrain, d_row: usize, d_col: usize) -> usize {
+    let mut row = 0;
+    let mut col = 0;
+    let mut trees_hugged = 0;
+
+    while row < terrain.rows {
+        trees_hugged += terrain.contains_huggable_tree(row, col) as usize;
+        row += d_row;
+        col += d_col;
+    }
+
+    return trees_hugged;
+}
+
 pub fn part1() {
     let filename = "inputs/day3.txt";
     let terrain = Terrain::load(filename);
@@ -45,18 +59,4 @@ pub fn part2() {
         .map(|(d_row, d_col)| how_many_trees_to_hug(&terrain, d_row, d_col))
         .product();
     println!("day3.part2.solution = {}", solution);
-}
-
-fn how_many_trees_to_hug(terrain: &Terrain, d_row: usize, d_col: usize) -> usize {
-    let mut row = 0;
-    let mut col = 0;
-    let mut trees_hugged = 0;
-
-    while row < terrain.rows {
-        trees_hugged += terrain.contains_huggable_tree(row, col) as usize;
-        row += d_row;
-        col += d_col;
-    }
-
-    return trees_hugged;
 }
