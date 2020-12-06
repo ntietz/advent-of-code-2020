@@ -14,6 +14,25 @@ pub fn part1() {
 }
 
 pub fn part2() {
+    let mut max: u32 = 0;
+    let mut min: u32 = !max;
+    let mut sum: u32 = 0;
+
+    for line in fs::read_to_string("inputs/day5.txt").unwrap().lines() {
+        let seat_id = decode_pass(&line.trim());
+        if seat_id < min {
+            min = seat_id;
+        } else if seat_id > max {
+            max = seat_id;
+        }
+        sum += seat_id;
+    }
+    let expected_sum = (max - min + 1) * (max + min) / 2;
+    let my_seat_id = expected_sum - sum;
+    println!("day5.part2.solution = {}", my_seat_id);
+}
+
+pub fn part2_take1() {
     let mut seat_ids: Vec<_> = fs::read_to_string("inputs/day5.txt")
         .unwrap()
         .lines()
