@@ -32,7 +32,7 @@ fn and(x: u32, y: u32) -> u32 {
 fn decode_line(answers: &str) -> u32 {
     let mut d = 0;
     for b in answers.as_bytes() {
-        d |= (1 << (b - b'a'));
+        d |= 1 << (b - b'a');
     }
     d
 }
