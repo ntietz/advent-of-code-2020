@@ -85,7 +85,7 @@ pub fn part1() {
 
     while fringe.len() > 0 {
         let mut next_fringe = HashSet::new();
-        for id in fringe.drain() {
+        for id in fringe {
             if !graph.redges.contains_key(&id) {
                 continue;
             }
