@@ -8,7 +8,8 @@
 //use aoc::day8;
 //use aoc::day9;
 //use aoc::day10;
-use aoc::day11;
+//use aoc::day11;
+use aoc::day12;
 
 fn main() {
     //day1::part1_naive();
@@ -33,6 +34,8 @@ fn main() {
     //day9::part2();
     //day10::part1();
     //day10::part2();
-    day11::part1();
-    day11::part2();
+    //day11::part1();
+    //day11::part2();
+    day12::part1();
+    day12::part2();
 }
