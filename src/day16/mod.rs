@@ -67,7 +67,7 @@ pub fn part2() {
     // because honestly, it's late and i have other things i need to do, and this is "just for
     // fun".
     while !available.is_empty() {
-        println!("{:#?}", available);
+        //println!("{:#?}", available);
         for (name, ranges) in &rules {
             let matching: Vec<_> = columns
                 .iter()
@@ -129,10 +129,7 @@ fn valid_ticket(ticket: &Vec<u64>, ranges: &Vec<(u64, u64)>) -> bool {
 }
 
 fn valid_field(field: u64, ranges: &Vec<(u64, u64)>) -> bool {
-    for (lower, upper) in ranges {
-        if *lower <= field && field <= *upper {
-            return true;
-        }
-    }
-    return false;
+    ranges
+        .iter()
+        .any(|(lower, upper)| *lower <= field && field <= *upper)
 }
