@@ -4,7 +4,7 @@ use std::fs;
 
 pub fn part1() {
     let mut cube = ConwayCube::load("inputs/day17.txt");
-    for step in 0..6 {
+    for _ in 0..6 {
         cube.cycle();
     }
     println!("day17.part1.solution = {}", cube.num_active());
@@ -113,6 +113,7 @@ impl ConwayCube {
         self.active = next_active;
     }
 
+    #[allow(dead_code)]
     pub fn print(&self) {
         let ((minx, miny, minz, minw), (maxx, maxy, maxz, maxw)) = self.bounding_box();
 

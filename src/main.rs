@@ -14,7 +14,8 @@
 //use aoc::day14;
 //use aoc::day15;
 //use aoc::day16;
-use aoc::day17;
+//use aoc::day17;
+use aoc::day18;
 
 fn main() {
     //day1::part1_naive();
@@ -51,6 +52,8 @@ fn main() {
     //day15::part2();
     //day16::part1();
     //day16::part2();
-    day17::part1();
-    day17::part2();
+    //day17::part1();
+    //day17::part2();
+    day18::part1();
+    day18::part2();
 }
