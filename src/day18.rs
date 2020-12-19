@@ -18,6 +18,16 @@ enum Operand {
     Times,
 }
 
+type Number = u64;
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum Token {
+    Number(Number),
+    Operand(Operand),
+    LeftParen,
+    RightParen,
+}
+
 fn evaluate(expr: &str) -> u64 {
     let mut tokens = tokenize(expr);
     evaluate_tokens(&mut tokens, false)
