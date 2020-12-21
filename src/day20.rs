@@ -12,7 +12,7 @@ pub fn part1() {
 }
 
 pub fn part2() {
-    let input = fs::read_to_string("inputs/day20.example.txt").unwrap();
+    let input = fs::read_to_string("inputs/day20.txt").unwrap();
     let mut image = Image::load(&input);
 
     let arranged = image.arranged();
@@ -26,13 +26,97 @@ pub fn part2() {
                 for c in &col.image[subrow] {
                     img_row.push(*c);
                 }
-                let s: String = col.image[subrow].iter().collect();
-                print!("{} ", s);
             }
             full_image.push(img_row);
-            println!("");
         }
-        println!("");
+    }
+
+    let num_hash: usize = full_image
+        .iter()
+        .map(|row| row.iter().filter(|&c| *c == '#').count())
+        .sum();
+    let mut num_monsta = num_monsters(&full_image);
+
+    while num_monsta == 0 {
+        rot_90(&mut full_image);
+        num_monsta = num_monsters(&full_image);
+
+        if num_monsta == 0 {
+            flip_h(&mut full_image);
+            num_monsta = num_monsters(&full_image);
+            flip_h(&mut full_image);
+        }
+    }
+
+    let solution = num_hash - 15 * num_monsta;
+    println!("day20.part2.solution = {}", solution);
+}
+
+fn print(image: &Vec<Vec<char>>) {
+    for row in image {
+        let mut s = String::from("");
+        for c in row {
+            s.push(*c);
+        }
+        println!("{}", s);
+    }
+    println!("");
+}
+
+fn num_monsters(image: &Vec<Vec<char>>) -> usize {
+    let monster: Vec<Vec<char>> = vec![
+        "                  # ".chars().collect(),
+        "#    ##    ##    ###".chars().collect(),
+        " #  #  #  #  #  #   ".chars().collect(),
+    ];
+
+    let mut monsters = 0;
+
+    for row in 0..(image.len() - monster.len()) {
+        for col in 0..(image[0].len() - monster[0].len()) {
+            let mut matched = true;
+            'mybrain: for (drow, monster_row) in monster.iter().enumerate() {
+                for (dcol, c) in monster_row.iter().enumerate() {
+                    match c {
+                        '#' => {
+                            if image[row + drow][col + dcol] != '#' {
+                                matched = false;
+                                break 'mybrain;
+                            }
+                        }
+                        _ => {}
+                    }
+                }
+            }
+
+            if matched {
+                monsters += 1;
+            }
+        }
+    }
+
+    monsters
+}
+
+fn rot_90(image: &mut Vec<Vec<char>>) {
+    let mut rot_image = image.clone();
+
+    for row in 0..image.len() {
+        for col in 0..image.len() {
+            rot_image[col][image.len() - 1 - row] = image[row][col];
+        }
+    }
+
+    image.clear();
+    image.append(&mut rot_image);
+}
+
+fn flip_h(image: &mut Vec<Vec<char>>) {
+    for mut row in image {
+        let len = row.len();
+        for idx in 0..(len / 2) {
+            row.swap(idx, len - idx - 1);
+        }
     }
 }
 
