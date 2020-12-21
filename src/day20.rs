@@ -52,6 +52,7 @@ pub fn part2() {
     println!("day20.part2.solution = {}", solution);
 }
 
+#[allow(dead_code)]
 fn print(image: &Vec<Vec<char>>) {
     for row in image {
         let mut s = String::from("");
@@ -112,7 +113,7 @@ fn rot_90(image: &mut Vec<Vec<char>>) {
 }
 
 fn flip_h(image: &mut Vec<Vec<char>>) {
-    for mut row in image {
+    for row in image {
         let len = row.len();
         for idx in 0..(len / 2) {
             row.swap(idx, len - idx - 1);
