@@ -150,13 +150,6 @@ mod test {
     }
 
     #[test]
-    fn finds_matching_parens() {
-        let expr = "1 + (2 * (3 * 4)) - 1";
-        let chars: Vec<_> = expr.chars().collect();
-        assert_eq!(matching_paren(&chars, 4), 16);
-    }
-
-    #[test]
     fn handles_parentheses() {
         assert_eq!(evaluate("1 + (2 * 3) + 4"), 11);
     }
