@@ -113,7 +113,7 @@ fn parse_field_line(line: &str) -> (&str, Vec<(u64, u64)>) {
 }
 
 fn parse_range(range: &str) -> (u64, u64) {
-    let split_idx = range.find("-").unwrap();
+    let split_idx = range.find('-').unwrap();
     (
         range[..split_idx].parse().unwrap(),
         range[split_idx + 1..].parse().unwrap(),
@@ -121,19 +121,19 @@ fn parse_range(range: &str) -> (u64, u64) {
 }
 
 fn parse_ticket(ticket: &str) -> Vec<u64> {
-    ticket.split(",").map(|x| x.parse().unwrap()).collect()
+    ticket.split(',').map(|x| x.parse().unwrap()).collect()
 }
 
-fn valid_ticket(ticket: &Vec<u64>, ranges: &Vec<(u64, u64)>) -> bool {
+fn valid_ticket(ticket: &[u64], ranges: &[(u64, u64)]) -> bool {
     for field in ticket {
         if !valid_field(*field, ranges) {
             return false;
         }
     }
-    return true;
+    true
 }
 
-fn valid_field(field: u64, ranges: &Vec<(u64, u64)>) -> bool {
+fn valid_field(field: u64, ranges: &[(u64, u64)]) -> bool {
     ranges
         .iter()
         .any(|(lower, upper)| *lower <= field && field <= *upper)

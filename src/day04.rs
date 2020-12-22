@@ -23,7 +23,7 @@ impl PassportData {
 
         for pair in parts {
             let pair = pair.to_string();
-            let split_idx = pair.find(":").unwrap();
+            let split_idx = pair.find(':').unwrap();
             let (key, value) = pair.split_at(split_idx);
             passport
                 .pairs
@@ -39,7 +39,7 @@ impl PassportData {
                 return false;
             }
         }
-        return true;
+        true
     }
 
     pub fn valid(&self) -> bool {
@@ -90,8 +90,7 @@ impl PassportData {
 
     fn valid_hcl(&self) -> bool {
         let hcl = self.pairs["hcl"].clone();
-        let valid = Regex::new(r"#[0-9a-f]{6}").unwrap().is_match(&hcl);
-        valid
+        Regex::new(r"#[0-9a-f]{6}").unwrap().is_match(&hcl)
     }
 
     fn valid_ecl(&self) -> bool {

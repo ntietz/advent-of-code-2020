@@ -13,7 +13,7 @@ pub fn part1() {
     let bus_ids: Vec<u32> = input_lines
         .next()
         .unwrap()
-        .split(",")
+        .split(',')
         .filter(|&s| s != "x")
         .map(|x| x.parse().unwrap())
         .collect();
@@ -32,7 +32,7 @@ pub fn part2() {
     let bus_ids: Vec<(u64, u64)> = input_lines
         .next()
         .unwrap()
-        .split(",")
+        .split(',')
         .enumerate()
         .filter(|(_, s)| *s != "x")
         .map(|(idx, x)| (idx as u64, x.parse().unwrap()))

@@ -52,8 +52,8 @@ fn play(mut deck1: VecDeque<u32>, mut deck2: VecDeque<u32>, recursive: bool) -> 
             false => card1 > card2,
             true if deck1.len() < card1 as usize || deck2.len() < card2 as usize => card1 > card2,
             _ => {
-                let subdeck1 = deck1.iter().take(card1 as usize).map(|c| *c).collect();
-                let subdeck2 = deck2.iter().take(card2 as usize).map(|c| *c).collect();
+                let subdeck1 = deck1.iter().take(card1 as usize).copied().collect();
+                let subdeck2 = deck2.iter().take(card2 as usize).copied().collect();
                 let (p1_wins, _) = play(subdeck1, subdeck2, recursive);
                 p1_wins
             }

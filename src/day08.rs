@@ -53,7 +53,7 @@ fn load_instructions(filename: &str) -> Vec<Instruction> {
 }
 
 fn parse_line(line: &str) -> Instruction {
-    let parts: Vec<_> = line.split(" ").collect();
+    let parts: Vec<_> = line.split(' ').collect();
     let op = match parts[0] {
         "nop" => Operation::Nop,
         "acc" => Operation::Acc,

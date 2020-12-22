@@ -26,7 +26,7 @@ impl Terrain {
     }
 
     pub fn contains_huggable_tree(&self, row: usize, col: usize) -> bool {
-        return self.map[row][col % self.cols] == '#';
+        self.map[row][col % self.cols] == '#'
     }
 }
 
@@ -41,7 +41,7 @@ fn how_many_trees_to_hug(terrain: &Terrain, d_row: usize, d_col: usize) -> usize
         col += d_col;
     }
 
-    return trees_hugged;
+    trees_hugged
 }
 
 pub fn part1() {

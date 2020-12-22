@@ -58,7 +58,7 @@ pub fn part2() {
 }
 
 #[allow(dead_code)]
-fn print(image: &Vec<Vec<char>>) {
+fn print(image: &[Vec<char>]) {
     for row in image {
         let mut s = String::from("");
         for c in row {
@@ -66,10 +66,10 @@ fn print(image: &Vec<Vec<char>>) {
         }
         println!("{}", s);
     }
-    println!("");
+    println!();
 }
 
-fn num_monsters(image: &Vec<Vec<char>>) -> usize {
+fn num_monsters(image: &[Vec<char>]) -> usize {
     let monster: Vec<Vec<char>> = vec![
         "                  # ".chars().collect(),
         "#    ##    ##    ###".chars().collect(),
@@ -83,14 +83,9 @@ fn num_monsters(image: &Vec<Vec<char>>) -> usize {
             let mut matched = true;
             'mybrain: for (drow, monster_row) in monster.iter().enumerate() {
                 for (dcol, c) in monster_row.iter().enumerate() {
-                    match c {
-                        '#' => {
-                            if image[row + drow][col + dcol] != '#' {
-                                matched = false;
-                                break 'mybrain;
-                            }
-                        }
-                        _ => {}
+                    if *c == '#' && image[row + drow][col + dcol] != '#' {
+                        matched = false;
+                        break 'mybrain;
                     }
                 }
             }
@@ -107,9 +102,9 @@ fn num_monsters(image: &Vec<Vec<char>>) -> usize {
 fn rot_90(image: &mut Vec<Vec<char>>) {
     let mut rot_image = image.clone();
 
-    for row in 0..image.len() {
-        for col in 0..image.len() {
-            rot_image[col][image.len() - 1 - row] = image[row][col];
+    for (row, img_row) in image.iter().enumerate() {
+        for (col, rot_img_col) in rot_image.iter_mut().enumerate() {
+            rot_img_col[image.len() - 1 - row] = img_row[col];
         }
     }
 
@@ -142,7 +137,7 @@ impl Image {
     pub fn arranged(&mut self) -> Vec<Vec<Tile>> {
         let border_counts = self.border_counts();
 
-        let mut starting_corner = self.corners()[0].clone();
+        let mut starting_corner = *self.corners()[0];
 
         // orient the starting corner correctly
         if border_counts[&starting_corner.borders[0]] > 1 {
@@ -166,15 +161,14 @@ impl Image {
             // find each next tile
             let sought = row[idx - 1].borders[1];
             let sought_alt = reversed_10(sought);
-            let mut tile = (*remaining_tiles
+            let mut tile = *(*remaining_tiles
                 .iter()
                 .find(|&t| t.borders.contains(&sought) || t.borders.contains(&sought_alt))
-                .unwrap())
-            .clone();
+                .unwrap());
             remaining_tiles = remaining_tiles
                 .iter()
                 .filter(|&t| t.id != tile.id)
-                .map(|&t| t)
+                .copied()
                 .collect();
 
             while border_counts[&tile.borders[0]] > 1 {
@@ -199,15 +193,14 @@ impl Image {
                 let sought = arrangement[row_num - 1][col_num].borders[2];
                 let sought_alt = reversed_10(sought);
 
-                let mut tile = (*remaining_tiles
+                let mut tile = *(*remaining_tiles
                     .iter()
                     .find(|&t| t.borders.contains(&sought) || t.borders.contains(&sought_alt))
-                    .unwrap())
-                .clone();
+                    .unwrap());
                 remaining_tiles = remaining_tiles
                     .iter()
                     .filter(|&t| t.id != tile.id)
-                    .map(|&t| t)
+                    .copied()
                     .collect();
 
                 while tile.borders[0] != sought && tile.borders[0] != sought_alt {
@@ -294,9 +287,7 @@ impl Tile {
             borders[1] = (borders[1] << 1) | (chars[9] == '.') as u64;
             borders[3] = (borders[3] << 1) | (chars[0] == '.') as u64;
             if 0 < idx && idx < 9 {
-                for col in 0..8 {
-                    image[idx - 1][col] = chars[col + 1];
-                }
+                image[idx - 1][..].clone_from_slice(&chars[1..9]);
             }
         }
 
@@ -336,9 +327,9 @@ impl Tile {
 
         let mut rot_image: [[char; 8]; 8] = [[' '; 8]; 8];
 
-        for row in 0..8 {
-            for col in 0..8 {
-                rot_image[col][7 - row] = self.image[row][col];
+        for (row, img_row) in self.image.iter().enumerate() {
+            for (col, rot_img_col) in rot_image.iter_mut().enumerate() {
+                rot_img_col[7 - row] = img_row[col];
             }
         }
 

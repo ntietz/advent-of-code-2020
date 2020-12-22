@@ -45,30 +45,27 @@ fn evaluate_precedence(expr: &str) -> u64 {
 
 fn evaluate_tokens(tokens: &mut Vec<Token>, precedence: bool) -> u64 {
     while tokens.iter().filter(|&c| *c == Token::LeftParen).count() > 0 {
-        match tokens.iter().position(|t| *t == Token::LeftParen) {
-            Some(start_idx) => {
-                let mut depth = 1;
-                let mut stop_idx = start_idx + 1;
-                while depth > 0 {
-                    match tokens[stop_idx] {
-                        Token::LeftParen => {
-                            depth += 1;
-                        }
-                        Token::RightParen => {
-                            depth -= 1;
-                        }
-                        _ => {}
+        if let Some(start_idx) = tokens.iter().position(|t| *t == Token::LeftParen) {
+            let mut depth = 1;
+            let mut stop_idx = start_idx + 1;
+            while depth > 0 {
+                match tokens[stop_idx] {
+                    Token::LeftParen => {
+                        depth += 1;
                     }
-                    stop_idx += 1;
+                    Token::RightParen => {
+                        depth -= 1;
+                    }
+                    _ => {}
                 }
-                let sub = evaluate_tokens(
-                    &mut tokens[start_idx + 1..stop_idx - 1].to_vec(),
-                    precedence,
-                );
-                tokens[start_idx] = Token::Number(sub);
-                tokens.drain(start_idx + 1..stop_idx);
+                stop_idx += 1;
             }
-            None => {}
+            let sub = evaluate_tokens(
+                &mut tokens[start_idx + 1..stop_idx - 1].to_vec(),
+                precedence,
+            );
+            tokens[start_idx] = Token::Number(sub);
+            tokens.drain(start_idx + 1..stop_idx);
         }
     }
 
@@ -86,11 +83,7 @@ fn evaluate_tokens(tokens: &mut Vec<Token>, precedence: bool) -> u64 {
             _ => panic!("What operator hath snuck in?"),
         };
 
-        tokens[next_idx] = match (
-            tokens[next_idx + 0],
-            tokens[next_idx + 1],
-            tokens[next_idx + 2],
-        ) {
+        tokens[next_idx] = match (tokens[next_idx], tokens[next_idx + 1], tokens[next_idx + 2]) {
             (Token::Number(x), Token::Operand(Operand::Plus), Token::Number(y)) => {
                 Token::Number(x + y)
             }

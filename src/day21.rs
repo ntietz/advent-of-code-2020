@@ -53,7 +53,7 @@ pub fn parts1and2() {
 
     let mut allergen_identities: BTreeMap<String, String> = BTreeMap::new();
 
-    while possible.len() > 0 {
+    while !possible.is_empty() {
         for allergen in &all_allergens {
             let possibilities: HashSet<String> = labels
                 .iter()

@@ -55,10 +55,10 @@ impl BagGraph {
             }
         }
 
-        (src.to_string(), edges)
+        (src, edges)
     }
 
-    pub fn hash_node(node_id: &String) -> NodeId {
+    pub fn hash_node(node_id: &str) -> NodeId {
         let mut hasher = DefaultHasher::new();
         node_id.hash(&mut hasher);
         hasher.finish()
@@ -88,7 +88,7 @@ pub fn part1() {
     let mut fringe: HashSet<NodeId> = HashSet::new();
     fringe.insert(BagGraph::hash_node(&"shiny gold".to_owned()));
 
-    while fringe.len() > 0 {
+    while !fringe.is_empty() {
         let mut next_fringe = HashSet::new();
         for id in fringe {
             if !graph.redges.contains_key(&id) {

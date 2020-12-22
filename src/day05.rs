@@ -43,7 +43,7 @@ pub fn part2_take1() {
         .lines()
         .map(|x| decode_pass(x.trim()))
         .collect();
-    seat_ids.sort();
+    seat_ids.sort_unstable();
 
     for window in seat_ids.windows(2) {
         if window[0] + 1 != window[1] {

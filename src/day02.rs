@@ -36,7 +36,7 @@ impl PasswordEntry {
 
         PasswordEntry {
             policy: Policy {
-                letter: parts[2].chars().nth(0).unwrap(),
+                letter: parts[2].chars().next().unwrap(),
                 min: parts[0].parse().unwrap(),
                 max: parts[1].parse().unwrap(),
             },

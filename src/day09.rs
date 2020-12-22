@@ -43,10 +43,8 @@ fn valid_num(preamble: &[u64], x: u64) -> bool {
         }
     }
     for y in preamble {
-        if partials.contains_key(&y) {
-            if partials[&y] > 1 || (y << 1 != x) {
-                return true;
-            }
+        if partials.contains_key(&y) && (partials[&y] > 1 || (y << 1 != x)) {
+            return true;
         }
     }
 

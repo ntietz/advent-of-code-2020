@@ -14,7 +14,7 @@ pub fn part1() {
         .map(|x| x.parse().unwrap())
         .collect();
     joltages.push(0);
-    joltages.sort();
+    joltages.sort_unstable();
 
     let mut diffs: HashMap<u64, u64> = HashMap::new();
 
@@ -37,7 +37,7 @@ pub fn part2() {
         .map(|x| x.parse().unwrap())
         .collect();
     joltages.push(0);
-    joltages.sort();
+    joltages.sort_unstable();
     joltages.push(3 + joltages[joltages.len() - 1]);
 
     let mut contiguous = 1;

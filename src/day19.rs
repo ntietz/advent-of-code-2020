@@ -39,7 +39,7 @@ fn checkp<'a>(message: &'a str, rules: &'a RuleSet, rule: RuleId) -> Vec<&'a str
         None => vec![],
 
         Some(Rule::Leaf(c)) => {
-            if message.len() == 0 {
+            if !message.is_empty() {
                 vec![]
             } else if message[..1] == c[..] {
                 vec![&message[1..]]
@@ -91,7 +91,7 @@ impl Rule {
             (
                 id,
                 Rule::Children(
-                    rhs.split("|")
+                    rhs.split('|')
                         .map(|p| p.split_whitespace().map(|c| c.parse().unwrap()).collect())
                         .collect(),
                 ),

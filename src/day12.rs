@@ -19,9 +19,9 @@ pub fn part1() {
     for (action, value) in instructions {
         let translation = match &action[..] {
             "N" => (0, value),
-            "S" => (0, -1 * value),
+            "S" => (0, -value),
             "E" => (value, 0),
-            "W" => (-1 * value, 0),
+            "W" => (-value, 0),
             "F" => (
                 value * angle.cos().round() as i32,
                 value * angle.sin().round() as i32,
@@ -31,7 +31,7 @@ pub fn part1() {
 
         let rotation = match &action[..] {
             "L" => radians(value as f64),
-            "R" => radians(-1.0 * value as f64),
+            "R" => radians(-value as f64),
             _ => 0.0,
         };
 
@@ -57,15 +57,15 @@ pub fn part2() {
     for (action, value) in instructions {
         let wp_trans = match &action[..] {
             "N" => (0.0, value),
-            "S" => (0.0, -1.0 * value),
+            "S" => (0.0, -value),
             "E" => (value, 0.0),
-            "W" => (-1.0 * value, 0.0),
+            "W" => (-value, 0.0),
             _ => (0.0, 0.0),
         };
 
         let wp_rot = match &action[..] {
             "L" => radians(value),
-            "R" => radians(-1.0 * value),
+            "R" => radians(-value),
             _ => 0.0,
         };
 
