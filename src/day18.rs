@@ -1,5 +1,10 @@
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let input = fs::read_to_string("inputs/day18.txt").unwrap();
     let solution: u64 = input.lines().map(evaluate).sum();

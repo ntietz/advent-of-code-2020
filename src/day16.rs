@@ -2,6 +2,11 @@ use std::collections::HashMap;
 use std::collections::HashSet;
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let input = fs::read_to_string("inputs/day16.txt").unwrap();
 

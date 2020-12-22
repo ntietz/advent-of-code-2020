@@ -1,5 +1,10 @@
 use std::collections::HashMap;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let mut spoken: Vec<usize> = vec![20, 9, 11, 0, 1, 2];
     let mut prev = spoken[spoken.len() - 1];

@@ -1,7 +1,7 @@
 use std::collections::{HashSet, VecDeque};
 use std::fs;
 
-pub fn solve() {
+pub fn run() {
     let input = fs::read_to_string("inputs/day22.txt").unwrap();
     let sections = input.split("\n\n");
 

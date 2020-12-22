@@ -2,6 +2,11 @@ use regex::Regex;
 use std::collections::HashMap;
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 #[derive(Debug)]
 struct PassportData {
     pub pairs: HashMap<String, String>,
@@ -109,7 +114,7 @@ pub fn part1() {
 
     let valid_records: Vec<_> = records.iter().filter(|x| x.keys_present()).collect();
 
-    println!("day4.part1.solution = {}", valid_records.len());
+    println!("day04.part1.solution = {}", valid_records.len());
 }
 
 pub fn part2() {
@@ -121,5 +126,5 @@ pub fn part2() {
 
     let valid_records: Vec<_> = records.iter().filter(|x| x.valid()).collect();
 
-    println!("day4.part2.solution = {}", valid_records.len());
+    println!("day04.part2.solution = {}", valid_records.len());
 }

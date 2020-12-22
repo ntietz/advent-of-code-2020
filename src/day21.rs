@@ -1,6 +1,10 @@
 use std::collections::{BTreeMap, HashSet};
 use std::fs;
 
+pub fn run() {
+    parts1and2();
+}
+
 pub fn parts1and2() {
     let input = fs::read_to_string("inputs/day21.txt").unwrap();
 

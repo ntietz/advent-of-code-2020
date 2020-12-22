@@ -1,6 +1,11 @@
 use std::collections::HashMap;
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let mut mem: HashMap<u64, u64> = HashMap::new();
     let mut mask = (0, 0);

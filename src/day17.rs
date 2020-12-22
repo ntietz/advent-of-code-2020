@@ -2,6 +2,11 @@ use std::cmp;
 use std::collections::HashSet;
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let mut cube = ConwayCube::load("inputs/day17.txt");
     for _ in 0..6 {

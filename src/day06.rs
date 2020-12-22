@@ -1,5 +1,10 @@
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let answer: u32 = fs::read_to_string("inputs/day6.txt")
         .unwrap()
@@ -8,7 +13,7 @@ pub fn part1() {
         .map(|x| x.count_ones())
         .sum();
 
-    println!("day6.part1.solution = {}", answer);
+    println!("day06.part1.solution = {}", answer);
 }
 
 pub fn part2() {
@@ -19,7 +24,7 @@ pub fn part2() {
         .map(|x| x.count_ones())
         .sum();
 
-    println!("day6.part2.solution = {}", answer);
+    println!("day06.part2.solution = {}", answer);
 }
 
 fn or(x: u32, y: u32) -> u32 {

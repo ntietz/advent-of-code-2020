@@ -1,10 +1,15 @@
 use std::collections::HashSet;
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let program = load_instructions("inputs/day8.txt");
     let (_, acc) = run_program(program);
-    println!("day8.part1.solution = {}", acc);
+    println!("day08.part1.solution = {}", acc);
 }
 
 pub fn part2() {
@@ -25,7 +30,7 @@ pub fn part2() {
         let (finished, acc) = run_program(new_program);
 
         if finished {
-            println!("day8.part2.solution = {}", acc);
+            println!("day08.part2.solution = {}", acc);
             break;
         }
     }

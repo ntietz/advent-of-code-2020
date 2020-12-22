@@ -2,6 +2,11 @@ use std::cmp;
 use std::collections::HashMap;
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let mut joltages: Vec<u64> = fs::read_to_string("inputs/day10.txt")
         .unwrap()

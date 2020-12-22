@@ -76,6 +76,11 @@ impl BagGraph {
     }
 }
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let graph = BagGraph::parse("inputs/day7.txt");
 
@@ -97,12 +102,12 @@ pub fn part1() {
         fringe = next_fringe;
     }
 
-    println!("day7.part1.solution = {}", visited.len());
+    println!("day07.part1.solution = {}", visited.len());
 }
 
 pub fn part2() {
     let graph = BagGraph::parse("inputs/day7.txt");
     let src = BagGraph::hash_node(&"shiny gold".to_owned());
 
-    println!("day7.part2.solution = {}", graph.traverse(src));
+    println!("day07.part2.solution = {}", graph.traverse(src));
 }

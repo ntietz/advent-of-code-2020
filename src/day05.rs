@@ -1,5 +1,10 @@
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 type SeatId = u32;
 
 pub fn part1() {
@@ -10,7 +15,7 @@ pub fn part1() {
         .collect();
     let highest = seat_ids.iter().max().unwrap();
 
-    println!("day5.part1.solution = {}", highest);
+    println!("day05.part1.solution = {}", highest);
 }
 
 pub fn part2() {
@@ -29,7 +34,7 @@ pub fn part2() {
     }
     let expected_sum = (max - min + 1) * (max + min) / 2;
     let my_seat_id = expected_sum - sum;
-    println!("day5.part2.solution = {}", my_seat_id);
+    println!("day05.part2.solution = {}", my_seat_id);
 }
 
 pub fn part2_take1() {
@@ -42,7 +47,7 @@ pub fn part2_take1() {
 
     for window in seat_ids.windows(2) {
         if window[0] + 1 != window[1] {
-            println!("day5.part2.solution = {}", window[0] + 1);
+            println!("day05.part2.solution = {}", window[0] + 1);
             break;
         }
     }

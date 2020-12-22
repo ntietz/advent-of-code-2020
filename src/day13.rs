@@ -1,5 +1,10 @@
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let raw_input = fs::read_to_string("inputs/day13.txt").unwrap();
     let mut input_lines = raw_input.lines();

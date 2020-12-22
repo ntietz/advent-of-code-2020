@@ -1,5 +1,10 @@
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 #[derive(Debug)]
 struct Terrain {
     pub map: Vec<Vec<char>>,
@@ -45,7 +50,7 @@ pub fn part1() {
 
     let solution = how_many_trees_to_hug(&terrain, 1, 3);
 
-    println!("day3.part1.solution = {}", solution);
+    println!("day03.part1.solution = {}", solution);
 }
 
 pub fn part2() {
@@ -58,5 +63,5 @@ pub fn part2() {
         .into_iter()
         .map(|(d_row, d_col)| how_many_trees_to_hug(&terrain, d_row, d_col))
         .product();
-    println!("day3.part2.solution = {}", solution);
+    println!("day03.part2.solution = {}", solution);
 }

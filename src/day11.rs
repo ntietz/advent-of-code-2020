@@ -124,6 +124,11 @@ impl Layout {
     }
 }
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let mut layout = load_layout("inputs/day11.txt");
     //println!("{}", layout.occupied_count());

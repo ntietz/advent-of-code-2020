@@ -1,6 +1,11 @@
 use std::collections::HashMap;
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let nums: Vec<u64> = fs::read_to_string("inputs/day9.txt")
         .unwrap()
@@ -10,7 +15,7 @@ pub fn part1() {
     let window_size = 26;
 
     let answer = first_invalid(&nums, window_size).unwrap();
-    println!("day9.part1.solution = {}", answer);
+    println!("day09.part1.solution = {}", answer);
 }
 
 pub fn part2() {
@@ -26,7 +31,7 @@ pub fn part2() {
     let min = range_which_sums.iter().min().unwrap();
     let max = range_which_sums.iter().max().unwrap();
 
-    println!("day9.part2.solution = {:#?}", min + max);
+    println!("day09.part2.solution = {:#?}", min + max);
 }
 
 fn valid_num(preamble: &[u64], x: u64) -> bool {

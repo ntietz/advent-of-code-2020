@@ -1,15 +1,20 @@
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let entries = load_input("inputs/day2.txt");
     let num_valid = entries.iter().filter(|e| e.valid_part1()).count();
-    println!("day2.part1.solution = {}", num_valid);
+    println!("day02.part1.solution = {}", num_valid);
 }
 
 pub fn part2() {
     let entries = load_input("inputs/day2.txt");
     let num_valid = entries.iter().filter(|e| e.valid_part2()).count();
-    println!("day2.part2.solution = {}", num_valid);
+    println!("day02.part2.solution = {}", num_valid);
 }
 
 #[derive(Debug, PartialEq, Eq)]

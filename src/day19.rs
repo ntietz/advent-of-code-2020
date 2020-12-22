@@ -1,6 +1,11 @@
 use std::collections::HashMap;
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let input = fs::read_to_string("inputs/day19.txt").unwrap();
     let sections: Vec<_> = input.split("\n\n").collect();

@@ -1,6 +1,11 @@
 use std::f64;
 use std::fs;
 
+pub fn run() {
+    part1();
+    part2();
+}
+
 pub fn part1() {
     let instructions: Vec<(String, i32)> = fs::read_to_string("inputs/day12.txt")
         .unwrap()
