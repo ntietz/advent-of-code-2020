@@ -1,6 +1,6 @@
 use crate::{
     day01, day02, day03, day04, day05, day06, day07, day08, day09, day10, day11, day12, day13,
-    day14, day15, day16, day17, day18, day19, day20, day21, day22,
+    day14, day15, day16, day17, day18, day19, day20, day21, day22, day23,
 };
 
 pub fn run(day: u32) {
@@ -27,6 +27,7 @@ pub fn run(day: u32) {
         20 => day20::run(),
         21 => day21::run(),
         22 => day22::run(),
+        23 => day23::run(),
         _ => panic!("Unfinished day!"),
     }
 }
