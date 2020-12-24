@@ -1,92 +1,89 @@
-use std::collections::VecDeque;
+use std::collections::HashMap;
 
 pub fn run() {
-    //let input = "389125467";
     let input = "467528193";
     part1(&input);
     part2(&input);
 }
 
 fn part1(input: &str) {
-    let mut cups: VecDeque<i32> = input
+    let cups: Vec<i32> = input
         .chars()
         .map(|c| c.to_digit(10).unwrap() as i32)
         .collect();
-
     let max = *cups.iter().max().unwrap();
+    let mut cups_succ: HashMap<i32, i32> = make_succ(&cups);
 
-    for _ in 0..100 {
-        next_round(&mut cups, max);
+    run_rounds(&mut cups_succ, cups[0], max, 100);
+
+    let mut solution = "".to_owned();
+    let mut next = cups_succ[&1];
+    while next != 1 {
+        solution.push_str(&next.to_string());
+        next = cups_succ[&next];
     }
-
-    rotate_to_1(&mut cups);
-
-    let solution = cups
-        .iter()
-        .skip(1)
-        .map(|&c| c.to_string())
-        .collect::<Vec<String>>()
-        .join("");
 
     println!("day23.part1.solution = {}", solution);
 }
 
 fn part2(input: &str) {
-    let mut cups: VecDeque<i32> = input
+    let mut cups: Vec<i32> = input
         .chars()
         .map(|c| c.to_digit(10).unwrap() as i32)
         .collect();
-
-    let first = cups.iter().max().unwrap() + 1;
-
-    for cup in first..=1_000_000 {
-        cups.push_back(cup);
+    for cup in cups.iter().max().unwrap()+1..=1_000_000 {
+        cups.push(cup);
     }
 
     let max = *cups.iter().max().unwrap();
+    let mut cups_succ: HashMap<i32, i32> = make_succ(&cups);
 
-    for _ in 0..100 {
-        next_round(&mut cups, max);
-    }
+    run_rounds(&mut cups_succ, cups[0], max, 10_000_000);
 
-
+    let solution = cups_succ[&1] as u64 * cups_succ[&cups_succ[&1]] as u64;
+    println!("day23.part2.solution = {}", solution);
 }
 
-fn next_round(cups: &mut VecDeque<i32>, max: i32) {
-    assert!(cups.len() > 4);
+fn run_rounds(succ: &mut HashMap<i32, i32>, first: i32, max: i32, num_rounds: usize) {
+    let mut current = first;
 
-    let current = cups.pop_front().unwrap();
-    let mut moving_cups: VecDeque<i32> = (0..3).map(|_| cups.pop_front().unwrap()).collect();
+    for _ in 0..num_rounds {
+        let mut pick_up = [0; 3];
+        pick_up[0] = succ[&current];
+        pick_up[1] = succ[&pick_up[0]];
+        pick_up[2] = succ[&pick_up[1]];
 
-    let mut looking_for = current - 1;
-    if looking_for <= 0 {
-        looking_for += max;
+        let target = looking_for(current, max, &pick_up);
+
+        succ.insert(current, succ[&pick_up[2]]);
+
+        let tmp = succ[&target];
+        succ.insert(target, pick_up[0]);
+        succ.insert(pick_up[2], tmp);
+
+        current = succ[&current];
     }
-    while moving_cups.contains(&looking_for) {
-        looking_for -= 1;
-        if looking_for <= 0 {
-            looking_for += max;
+}
+
+fn make_succ(cups: &[i32]) -> HashMap<i32, i32> {
+    let mut succ: HashMap<i32, i32> = cups
+        .windows(2)
+        .map(|s| (s[0], s[1]))
+        .collect();
+    succ.insert(cups[cups.len()-1], cups[0]);
+
+    succ
+}
+
+/// This function is very inelegant. It feels like there's a much better way to do this,
+/// and brain isn't braining right now. And let's be honest, I don't want to write the
+/// tests right nwo that a trickier solution would require.
+fn looking_for(current: i32, max: i32, skip: &[i32]) -> i32 {
+    for offset in 1..=4 {
+        let target = (((current - offset) + max - 1) % max) + 1;
+        if skip[0] != target && skip[1] != target && skip[2] != target {
+            return target;
         }
     }
-
-    let destination_idx = cups
-        .iter()
-        .position(|&c| c == looking_for)
-        .unwrap();
-
-    let insert_at = (destination_idx + 1) % (cups.len() + 1);
-    cups.rotate_left(insert_at);
-    while !moving_cups.is_empty() {
-        cups.push_front(moving_cups.pop_back().unwrap());
-        //cups.insert(insert_at, moving_cups.pop_back().unwrap());
-    }
-    cups.rotate_right(insert_at);
-
-    cups.push_front(current);
-    cups.rotate_left(1);
-}
-
-fn rotate_to_1(cups: &mut VecDeque<i32>) {
-    let idx = cups.iter().position(|&c| c == 1).unwrap();
-    cups.rotate_left(idx);
+    panic!("Did not find target.");
 }
