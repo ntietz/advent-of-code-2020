@@ -31,7 +31,7 @@ fn part2(input: &str) {
         .chars()
         .map(|c| c.to_digit(10).unwrap() as i32)
         .collect();
-    for cup in cups.iter().max().unwrap()+1..=1_000_000 {
+    for cup in cups.iter().max().unwrap() + 1..=1_000_000 {
         cups.push(cup);
     }
 
@@ -66,11 +66,8 @@ fn run_rounds(succ: &mut HashMap<i32, i32>, first: i32, max: i32, num_rounds: us
 }
 
 fn make_succ(cups: &[i32]) -> HashMap<i32, i32> {
-    let mut succ: HashMap<i32, i32> = cups
-        .windows(2)
-        .map(|s| (s[0], s[1]))
-        .collect();
-    succ.insert(cups[cups.len()-1], cups[0]);
+    let mut succ: HashMap<i32, i32> = cups.windows(2).map(|s| (s[0], s[1])).collect();
+    succ.insert(cups[cups.len() - 1], cups[0]);
 
     succ
 }
