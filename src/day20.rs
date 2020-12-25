@@ -340,30 +340,3 @@ impl Tile {
 fn reversed_10(border: u64) -> u64 {
     border.reverse_bits() >> (64 - 10)
 }
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn loads_tile_from_str() {
-        let input = "Tile 1753:
-..##.#.#.#
-#...#.....
-#......#..
-#..##..#.#
-#..##....#
-#.........
-#.#...##..
-#....#..##
-##.......#
-#...######";
-
-        let expected = Tile {
-            id: 1753,
-            borders: [810, 408, 448, 512],
-        };
-
-        assert_eq!(Tile::load(&input), expected);
-    }
-}
