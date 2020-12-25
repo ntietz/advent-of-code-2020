@@ -39,7 +39,7 @@ fn checkp<'a>(message: &'a str, rules: &'a RuleSet, rule: RuleId) -> Vec<&'a str
         None => vec![],
 
         Some(Rule::Leaf(c)) => {
-            if !message.is_empty() {
+            if message.is_empty() {
                 vec![]
             } else if message[..1] == c[..] {
                 vec![&message[1..]]
